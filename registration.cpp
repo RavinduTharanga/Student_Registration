@@ -1,23 +1,117 @@
-#include <iostream>
-#include <fstream>
-#include <cstring>
+#include<iostream>
+#include<string>
+#include<stdlib.h>
+
 using namespace std;
 
-void menu(){
-    int option;
-        cout<<"\n\n---------Student Database System --------\n\n";
-        cout<<"1 : Add New Student\n";
-        cout<<"2 : Student Login\n";
-        cout<<"3 : Faculty Loging\n";
-        cout<<"4 : Admin View\n";
-        cout<<"5 : Exit\n";
-        cout<< "Please Enter Number :";  
-        cin >> option;
-}
+int main();
+void show_data(int searchkey);     //function used to show data to end-user.
+void get_data(int i);           //function used to obtain data from end-user.
+void search_student(int searchkey);
+void add_student();      //This function is used to add record of new student.
+void edit_student(int idnumber);   //function is used to edit existing record.   
+void fullscreen();
+int ts;
 
+struct student    //Structure student is made to store student attributes.
+{ 
+  int rollno; 
+  string name;
+  string fname;
+  string cell;
+  string dob;
+  string address;
+};
+student rec[50];  //This is basic array of defined structure to sore data.
 
 int main(){
-   menu();
+   
+    int choice;   //int variable used to determine which operation user want to do.
+    // int idnumber;   //int variable used to record ID number whih user want to edit.
+    // int searchkey;  //int variable to store student roll_no by which user can search.
+    
+    cout<<"Enter The Total Number of Student(s)- Max 50: ";
+    cin>>ts;
+
+    while (ts--)
+    {
+        cout<<"\n\t\tWhat do you want to do?"<<endl;
+        cout<<"\t\t----------------------"<<endl;
+        cout<<"\t\t1-Add student"<<endl;
+        cout<<"\t\t2-Edit student"<<endl;
+        cout<<"\t\t3-Search student"<<endl;
+        cout<<"\t\t4-Quit Program"<<endl;
+        cout<<"\t\t----------------------"<<endl;
+        cout<<"Enter your choice: ";
+
+        cin>>choice;
+        switch(choice){
+            case 1:
+            add_student();
+            break;
+
+
+        }
+
+    }
+    
+
+
+
+}
+void get_data(int i)        //Function for receiving data from user and populatiing the variables with values.
+{   
+  cout<<"Enter student roll number in  format(1XXX): ";
+  cin>>rec[i].rollno;
+  cout<<"Enter student name: ";
+  cin>>rec[i].name;
+  cout<<"Enter student's Father name: ";
+  cin>>rec[i].fname;
+  cout<<"Enter student's cell phone number: ";
+  cin>>rec[i].cell;
+  cout<<"Enter student's Date of Birth(dd/mm/yyyy): ";
+  cin>>rec[i].dob;
+  cout<<"Enter student's Address: ";
+  cin>>rec[i].address;
+}
+void show_data(int searchkey)      //Function for showing data on the screen.
+{    
+  int i=searchkey;
+  cout<<i<<"    ";
+  cout<<rec[i].rollno<<"   ";
+  cout<<rec[i].name<<"     ";
+  cout<<rec[i].fname<<"\t";
+  cout<<rec[i].cell<<"   ";
+  cout<<rec[i].dob<<"   ";
+  cout<<rec[i].address<<"\n\n";
+    
+
+
+}
+
+void add_student(){
+
+    for(int i=0;i<=ts;i++)
+    {
+        get_data(i);          //Loop was processed 5 times to get input for 5 students.
+    }
+    cout<<endl;
+    cout<<"--------------------------------------------------------------------------------"<<endl;
+    cout<<"---------------------------Student record Table---------------------------------"<<endl;
+    cout<<"--------------------------------------------------------------------------------"<<endl;
+    cout<<"ID   "<<"Roll   "<<"Name      "<<"Father\tCell no.      "<<"DOB          "<<"Address\n\n";
+    cout<<"--------------------------------------------------------------------------------"<<endl;
+
+for(int i=0;i<=ts;i++)
+{
+    show_data(i);        //Loop was processed for 5 times to show obtained records.
+}
+cout<<"--------------------------------------------------------------------------------"<<endl;
+cout<<"---------------------------------FINISH-----------------------------------------"<<endl;
+cout<<"--------------------------------------------------------------------------------"<<endl;
+
+main();  
+
 
 
 }
