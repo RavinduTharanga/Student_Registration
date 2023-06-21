@@ -27,7 +27,7 @@ student rec[50];  //This is basic array of defined structure to sore data.
 int main(){
    
     int choice;   //int variable used to determine which operation user want to do.
-    // int idnumber;   //int variable used to record ID number whih user want to edit.
+    int idnumber;   //int variable used to record ID number whih user want to edit.
     // int searchkey;  //int variable to store student roll_no by which user can search.
     
     cout<<"Enter The Total Number of Student(s)- Max 50: ";
@@ -48,6 +48,44 @@ int main(){
         switch(choice){
             case 1:
             add_student();
+            break;
+            case 2:         //If there are no records in array then it will ask the user to input records first.
+            if(rec[0].rollno==0)
+            {
+                cout<<"Please Add sudents first."<<endl;
+                system("pause");
+                main();
+            }
+            else         //If records are present in array then it will show table.
+            { 
+                cout<<endl;
+                cout<<"--------------------------------------------------------------------------------"<<endl;
+                cout<<"---------------------------Student record Table---------------------------------"<<endl;
+                cout<<"--------------------------------------------------------------------------------"<<endl; 
+                cout<<"ID   "<<"Roll   "<<"Name      "<<"Father\tCell no.      "<<"DOB          "<<"Address\n\n";
+                cout<<"--------------------------------------------------------------------------------"<<endl; 
+
+                for(int i=0;i<=ts;i++)
+                {
+                show_data(i);     //funtion is called with index value to show data.
+                }
+
+                cout<<"--------------------------------------------------------------------------------"<<endl;
+                cout<<"Which ID number your want to edit: ";
+            
+                cin>>idnumber;            //Asking the user at which ID he wants to make a change.
+                
+                if(idnumber>ts || idnumber<0)  //Validating the ID number.
+                {      
+                    cout<<"\nInvalid ID Number."<<endl;
+                }
+                else
+                {
+                    edit_student(idnumber); 
+                    
+                       //Passing ID number to Edit Function.
+                }
+            }
             break;
 
 
@@ -114,4 +152,29 @@ main();
 
 
 
+}
+
+void edit_student(int idnumber)     //function is used to edit existing record.
+{  
+  for(int i=0;i<=ts;i++)       //Loop is started.
+ {  
+   if(idnumber==i)       //Through loop every value is compared with search term.
+  {         
+    cout<<"\nExisted information about this record.\n\n";
+    cout<<"--------------------------------------------------------------------------------"<<endl;
+    cout<<"ID   "<<"Roll   "<<"Name      "<<"Father\tCell no.      "<<"DOB          "<<"Address\n\n";
+    cout<<"--------------------------------------------------------------------------------"<<endl;
+    show_data(i);       //Load information for existing record.
+    cout<<"\n\nEnter new data for above shown record.\n\n";
+    get_data(i);         //Inputing data for that specific record.
+    cout<<"\n\nRecord updated successfully."<<endl;
+
+    cout<<"--------------------------------------------------------------------------------"<<endl;
+    cout<<"ID   "<<"Roll   "<<"Name      "<<"Father\tCell no.      "<<"DOB          "<<"Address\n\n";
+    cout<<"--------------------------------------------------------------------------------"<<endl;
+    show_data(i);         //Loop was processed for 5 times to show obtained records.
+
+    main();           //Return to main function.
+   }
+  }
 }
