@@ -28,7 +28,7 @@ int main(){
    
     int choice;   //int variable used to determine which operation user want to do.
     int idnumber;   //int variable used to record ID number whih user want to edit.
-    // int searchkey;  //int variable to store student roll_no by which user can search.
+    int searchkey;  //int variable to store student roll_no by which user can search.
     
     cout<<"Enter The Total Number of Student(s)- Max 50: ";
     cin>>ts;
@@ -87,6 +87,27 @@ int main(){
                 }
             }
             break;
+            case 3:
+            if(rec[0].rollno==0)     //If no record exist then ask the user o enter records first.
+            {   
+                cout<<"Please Add sudents first."<<endl;
+                system("pause");
+                main();         //Return to main so user can input new record.
+            }
+            else
+            {
+                cout<<"Enter roll_no of student you want to search: ";
+                cin>>searchkey;     //roll_no as the search key can be entered by user.
+                search_student(searchkey);
+            }
+            break;
+            case 4:
+            exit(EXIT_SUCCESS);       //Terminating the records.
+            break;
+            default:         //Default value for ivalid Input. 
+                cout<<"Invalid number."<<endl;
+            main();
+            
 
 
         }
@@ -177,4 +198,16 @@ void edit_student(int idnumber)     //function is used to edit existing record.
     main();           //Return to main function.
    }
   }
+}
+
+void search_student(int searchkey)
+{
+  for(int i=0;i<=ts;i++)       //Loop thrugh complete array.
+ { 
+   if(rec[i].rollno==searchkey)    //If roll number matches to search term.
+  {   
+    cout<<"ID   "<<"Roll   "<<"Name      "<<"Father\tCell no.      "<<"DOB          "<<"Address\n\n";
+    show_data(i);       //A function is used inside another function.
+   }
+  } 
 }
